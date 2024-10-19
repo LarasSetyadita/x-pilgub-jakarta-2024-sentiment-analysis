@@ -1,6 +1,8 @@
 import streamlit as st
 import plost
 import pandas as pd
+#import altair as alt
+
 
 #####################
 ## import css file ##
@@ -25,8 +27,10 @@ data = pd.DataFrame(data)
 ## page method ##
 #################
 
-def bar_chart():
-    st.write('barchart')
+def altair_chart(selected_theta, data1):
+    st.write('dalam proses pembuatan')
+
+
 
 def donut_chart(selected_theta, data1):
     plost.donut_chart(
@@ -45,8 +49,9 @@ def main():
     st.image('./images/pilkada-header-logo.jpg')
     st.title('Analisis Sentiment Pemilihan Gubernur Jakarta 2024')
     st.subheader('Crawlind data didapatkan dari aplikasi X')
-
+    st.markdown('<hr class="custom-divider">', unsafe_allow_html=True)
     # deskripsi
+    st.header("Deskripsi Sentiment Analysis")
     st.write('Analisis sentimen ini bertujuan untuk memahami opini publik '
                   'terkait keyword "jakarta menyala" yang berkaitan dengan '
                   'pemilihan gubernur Jakarta 2024. Data dikumpulkan melalui '
@@ -65,21 +70,21 @@ def main():
     if submit_button:
         st.info('Positif')
 
-    col1, col2 = st.columns(2)
-    with col1:
-        st.sidebar.subheader('Donut chart parameter')
-        donut_theta = st.sidebar.selectbox('Select data', ('jumlah kata', 'polaritas'))
-        donut_chart(donut_theta, data)
-    # with col2:
-    #     st.sidebar.subheader('Donut chart parameter')
-    #     donut_theta = st.sidebar.selectbox('Select data', ('jumlah kata', 'polaritas'))
-    #     donut_chart(donut_theta, data)
+        col1, col2 = st.columns(2)
+        with col1:
+            st.sidebar.subheader('Donut chart parameter')
+            donut_theta = st.sidebar.selectbox('Select data', ('jumlah kata', 'polaritas'))
+            donut_chart(donut_theta, data)
+        with col2:
+             st.sidebar.subheader('Bar chart parameter')
+             bar_theta = st.sidebar.selectbox('Select data', ('jumlah kata', 'polaritas'))
+             donut_chart(donut_theta, data)
 
-    st.markdown('### Metrics')
-    col1, col2, col3 = st.columns(3)
-    col1.metric("Temperature", "70 °F", "1.2 °F")
-    col2.metric("Wind", "9 mph", "-8%")
-    col3.metric("Humidity", "86%", "4%")
+        st.markdown('### Metrics')
+        col1, col2, col3 = st.columns(3)
+        col1.metric("Temperature", "70 °F", "1.2 °F")
+        col2.metric("Wind", "9 mph", "-8%")
+        col3.metric("Humidity", "86%", "4%")
 
 
 
